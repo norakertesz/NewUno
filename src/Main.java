@@ -14,7 +14,12 @@ public class Main {
         gamePlayers.addPlayerToPlayerList(marlies);
         gamePlayers.addPlayerToPlayerList(nora);
         gamePlayers.start();
+        System.out.println("-------------------START------------------");
         System.out.println(gamePlayers);
+        gamePlayers.cardChoice();
+
+
+
 
 
     }
