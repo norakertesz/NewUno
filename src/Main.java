@@ -14,6 +14,7 @@ public class Main {
         gamePlayers.addPlayerToPlayerList(marlies);
         gamePlayers.addPlayerToPlayerList(nora);
         gamePlayers.start();
+        System.out.println(gamePlayers);
 
 
     }

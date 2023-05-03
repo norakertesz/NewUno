@@ -43,7 +43,7 @@ public class Player{
     public String toString() {
         return
                 playersNumber + " " +
-                        name;
+                        name+cardsInHand;
     }
 
 
