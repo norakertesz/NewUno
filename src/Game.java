@@ -37,13 +37,12 @@ public class Game {
 
     public void cardChoice() {
 
-        for (Player p : playersInGame) {
-            System.out.println("Welche Karte moechten Sie ausspielen?");
-            disCardPile.addToDiscardPile(p.playerDropCard());
+            for (Player p : playersInGame) {
+                System.out.println("Welche Karte moechten Sie ausspielen?");
+                disCardPile.addToDiscardPile(p.playerDropCard());
 
-        }
+            }
     }
-
 
     @Override
     public String toString() {

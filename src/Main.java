@@ -17,6 +17,7 @@ public class Main {
         System.out.println("-------------------START------------------");
         System.out.println(gamePlayers);
         gamePlayers.cardChoice();
+        System.out.println(gamePlayers);
 
 
 

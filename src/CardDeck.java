@@ -64,11 +64,16 @@ public class CardDeck {
     }
 
 
+    public void addToDiscardPile(Card playerDropCard) {
+        cards.add(playerDropCard);
+    }
 
     @Override
     public String toString() {
         return "CardDeck:" + cards ;
     }
+
+
 }
 
 
