@@ -4,8 +4,8 @@ public class Game {
 
     //Method zum Karte zu zaehlen
     private CardDeck cardDeck = new CardDeck();
-    private CardDeck disCardPile = new CardDeck();
-
+    private CardDeck discardPile = new CardDeck();  //ablegestapel
+    private Table table = new Table();
 
     public ArrayList<Player> playersInGame = new ArrayList<>();
 
@@ -36,13 +36,19 @@ public class Game {
 
 
     public void cardChoice() {
-
+        do {
             for (Player p : playersInGame) {
-                System.out.println("Welche Karte moechten Sie ausspielen?");
-                disCardPile.addToDiscardPile(p.playerDropCard());
+                System.out.println("Card on Table: ");
+                System.out.println(layStartCard());
+                System.out.println("Player " + p.getName() + " your turn");
+                System.out.println("Your cards: " + p.showMyCards());
+                System.out.println("Welche Karte möchten Sie ausspielen?");
 
+                discardPile.addToDiscardPile(p.playerDropCard());
             }
+        } while(table !=  null);
     }
+
 
     @Override
     public String toString() {

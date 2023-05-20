@@ -42,6 +42,15 @@ public class Player {
         return cardsInHand.size();
     }
 
+    public String showMyCards() {
+        String myCards = "";
+        int i = 1;
+        for (Card shoMyCards : cardsInHand) {
+            myCards += i+ " -> " + shoMyCards.toString() + "\n";
+            i++;
+        } return myCards;
+    }
+
     public Card playerDropCard() {
         int choice = input.nextInt(); //kann wählen welche karte(wievielte) vom reihe(1-7)
 
