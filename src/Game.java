@@ -41,7 +41,7 @@ public class Game {
                 System.out.println("Card on Table: ");
                 System.out.println(layStartCard());
                 System.out.println("Player " + p.getName() + " your turn");
-                System.out.println("Your cards: " + p.showMyCards());
+                System.out.println("Your cards: " + "\n"+p.showMyCards());
                 System.out.println("Welche Karte möchten Sie ausspielen?");
 
                 discardPile.addToDiscardPile(p.playerDropCard());
