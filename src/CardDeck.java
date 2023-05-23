@@ -68,6 +68,10 @@ public class CardDeck {
         cards.add(playerDropCard);
     }
 
+    public Card getDropCard(){
+        return cards.get(cards.size()-1);
+    }
+
     @Override
     public String toString() {
         return "CardDeck:" + cards ;
