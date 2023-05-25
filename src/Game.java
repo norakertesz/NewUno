@@ -64,7 +64,7 @@ public class Game {
         } else if (discardDeckCard.getSign().equals(card.getSign())) {
             return true;
         } else{
-            System.out.println("NEIN: Wählen Sie die richtige Karte!");
+            System.out.println("Fehler: Wählen Sie die richtige Karte!");
             System.out.println("Card on Table: "+discardDeckCard);
 
         }
