@@ -10,6 +10,7 @@ public class Game {
     public CardDeck getDiscardPile() {
         return discardPile;
     }
+
     public void start() {
         System.out.println("**********************UNO**********************");
         //spieler im main erstellen
@@ -22,15 +23,13 @@ public class Game {
         do {
             for (Player p : playersInGame) {
                 System.out.println("Player " + p.getName() + " your turn");
-                System.out.println("Your cards: " +"\n"+ p.showMyCards());
+                System.out.println("Your cards: " + "\n" + p.showMyCards());
                 System.out.println("Welche Karte möchten Sie ausspielen?");
                 discardPile.addToCards(p.playerDropCard());
-                System.out.println("Card on Table: "+discardPile.getDropCard());
+                System.out.println("Card on Table: " + discardPile.getDropCard());
             }
-        } while(table !=  null);
+        } while (table != null);
     }
-
-
 
 
     public void addPlayerToPlayerList(Player p) {
@@ -57,10 +56,19 @@ public class Game {
 
     public boolean cardValidation(Card card) {
         Card discardDeckCard = getDiscardPile().getDropCard();
+        if (card.getColor().equals("black")) {
+            return true;
+        }
+        else if (discardDeckCard.getColor().equals(card.getColor())) {
+            return true;
+        } else if (discardDeckCard.getSign().equals(card.getSign())) {
+            return true;
+        } else{
+            System.out.println("NEIN: Wählen Sie die richtige Karte!");
+            System.out.println("Card on Table: "+discardDeckCard);
 
-        return card.getSign().equals(discardDeckCard.getSign())
-                || card.getColor().equals(discardDeckCard.getColor())
-                || card.getColor().equals("");
+        }
+        return false;
     }
 
 

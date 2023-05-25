@@ -16,7 +16,7 @@ public class Player {
         this.name = name;
         this.playersNumber = playersNumber;
         gameOver = false;
-        this.game=game;
+        this.game = game;
     }
 
     //karte zu hand
@@ -44,15 +44,16 @@ public class Player {
 
 
             if (choice > 0 && choice <= cardsInHand.size()) {
-               game.cardValidation(cardsInHand.get(choice-1);
-                return cardsInHand.remove(choice - 1);
-
+                if (game.cardValidation(cardsInHand.get(choice - 1))) {
+                    return cardsInHand.remove(choice - 1);
+                }
             } else {
                 System.out.println("Bitte eine Nummer zwischen 1 und " + cardsInHand.size() + " eingeben:");
             }
         } while (true);
 
     }
+
     public void takeCardBack(Card card) {
         cardsInHand.add(card);
     }
