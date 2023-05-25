@@ -56,12 +56,16 @@ public class Game {
 
     public boolean cardValidation(Card card) {
         Card discardDeckCard = getDiscardPile().getDropCard();
+        System.out.println("CardValidation: I got card "+card);
+        System.out.println("Discardpile dropcard: "+ discardDeckCard);
+        System.out.println("Color: '"+ card.getColor()+"'");
         if (card.getColor().equals("black")) {
+            System.out.println("Card is black, return true");
             return true;
         }
-        else if (discardDeckCard.getColor().equals(card.getColor())) {
+        else if (discardDeckCard.getColor().equals(card.getColor())||card.getColor().equals("black")) {
             return true;
-        } else if (discardDeckCard.getSign().equals(card.getSign())) {
+        } else if (discardDeckCard.getSign().equals(card.getSign())||card.getColor().equals("black")) {
             return true;
         } else{
             System.out.println("Fehler: Wählen Sie die richtige Karte!");

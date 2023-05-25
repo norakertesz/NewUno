@@ -51,7 +51,7 @@ public class CardDeck {
         }
 
         for (int b = 0; b < 4; b++) {
-            cards.add(new Card("+4", "black "));
+            cards.add(new Card("+4", "black"));
             cards.add(new Card("color change", "black "));
         }
 
