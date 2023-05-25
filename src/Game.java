@@ -12,16 +12,13 @@ public class Game {
         System.out.println("**********************UNO**********************");
         //spieler im main erstellen
         shareCards();   //karten austeilen
-        //layStartCard();  //erste karte auf dem tisch
-
+        layStartCard();  //erste karte auf dem tisch
 
     }
 
     public void cardChoice() {
         do {
             for (Player p : playersInGame) {
-
-
                 System.out.println("Player " + p.getName() + " your turn");
                 System.out.println("Your cards: " +"\n"+ p.showMyCards());
                 System.out.println("Welche Karte möchten Sie ausspielen?");
@@ -52,6 +49,7 @@ public class Game {
         card = cardDeck.drawCard();
         return card;
     }
+                               // +2 ODER +4
 //public Card spielRegel(){
 //        for(Player player:playersInGame){
 //     if (discardPile.getDropCard().getSign().equals("+2") || discardPile.getDropCard().getSign().equals("+4")) {

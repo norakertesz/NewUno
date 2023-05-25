@@ -10,9 +10,7 @@ public class Table {
         cardOnTable = card;
     }
 
-    public void layStartCard(Card card) {
-        cardOnTable = card;
-    }
+
 
 
 }

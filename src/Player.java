@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Player {
@@ -27,8 +28,20 @@ public class Player {
         int choice;   //kann wählen welche karte(wievielte) vom reihe(1-7)
 
         do {
-            choice=input.nextInt();
-            if (choice > 0 && choice < cardsInHand.size()) {
+
+            String a = input.nextLine();
+
+            try {
+                choice = Integer.parseInt(a);
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Bitte eine Nummer zwischen 1 und " + cardsInHand.size() + " eingeben:");
+                continue;
+            }
+
+
+            if (choice > 0 && choice <= cardsInHand.size()) {
                 return cardsInHand.remove(choice - 1);
             } else {
                 System.out.println("Bitte eine Nummer zwischen 1 und " + cardsInHand.size() + " eingeben:");
