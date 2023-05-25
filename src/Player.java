@@ -10,11 +10,13 @@ public class Player {
     private ArrayList<Player> players = new ArrayList<>();
     private String winner;
     private boolean gameOver;
+    private Game game;
 
-    public Player(int playersNumber, String name) {
+    public Player(int playersNumber, String name, Game game) {
         this.name = name;
         this.playersNumber = playersNumber;
         gameOver = false;
+        this.game=game;
     }
 
     //karte zu hand
@@ -42,12 +44,17 @@ public class Player {
 
 
             if (choice > 0 && choice <= cardsInHand.size()) {
+               game.cardValidation(cardsInHand.get(choice-1);
                 return cardsInHand.remove(choice - 1);
+
             } else {
                 System.out.println("Bitte eine Nummer zwischen 1 und " + cardsInHand.size() + " eingeben:");
             }
         } while (true);
 
+    }
+    public void takeCardBack(Card card) {
+        cardsInHand.add(card);
     }
 
 //    public boolean sayUno() {

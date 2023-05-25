@@ -64,7 +64,7 @@ public class CardDeck {
     }
 
 
-    public void addToDiscardPile(Card playerDropCard) {
+    public void addToCards(Card playerDropCard) {
         cards.add(playerDropCard);
     }
 
