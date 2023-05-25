@@ -11,6 +11,10 @@ public class Game {
         return discardPile;
     }
 
+    public CardDeck getCardDeck() {
+        return cardDeck;
+    }
+
     public void start() {
         System.out.println("**********************UNO**********************");
         //spieler im main erstellen
@@ -56,23 +60,37 @@ public class Game {
 
     public boolean cardValidation(Card card) {
         Card discardDeckCard = getDiscardPile().getDropCard();
-        System.out.println("CardValidation: I got card "+card);
-        System.out.println("Discardpile dropcard: "+ discardDeckCard);
-        System.out.println("Color: '"+ card.getColor()+"'");
+        System.out.println("CardValidation: I got card " + card);
+        System.out.println("Discardpile dropcard: " + discardDeckCard);
+        System.out.println("Color: '" + card.getColor() + "'");
         if (card.getColor().equals("black")) {
-            System.out.println("Card is black, return true");
             return true;
-        }
-        else if (discardDeckCard.getColor().equals(card.getColor())||card.getColor().equals("black")) {
+        } else if (discardDeckCard.getColor().equals(card.getColor()) || card.getColor().equals("black") || discardDeckCard.getColor().equals("black")) {
             return true;
-        } else if (discardDeckCard.getSign().equals(card.getSign())||card.getColor().equals("black")) {
+        } else if (discardDeckCard.getSign().equals(card.getSign()) || card.getSign().equals("+4") || discardDeckCard.getSign().equals("+4")) {
             return true;
-        } else{
+        } else if (discardDeckCard.getSign().equals(card.getSign()) || card.getSign().equals("color change") || discardDeckCard.getSign().equals("color change")) {
+
+            return true;
+
+        } else {
             System.out.println("Fehler: Wählen Sie die richtige Karte!");
-            System.out.println("Card on Table: "+discardDeckCard);
+            System.out.println("Card on Table: " + discardDeckCard);
 
         }
         return false;
+    }
+
+    public void cardRegel2or4(Card card) {
+        Card discardDeckCard = getDiscardPile().getDropCard();
+        for (Player player : playersInGame) {
+            if (discardDeckCard.getSign().equals("+2") || discardDeckCard.getSign().equals("+4")) {
+                if (discardDeckCard.getSign().equals("+2")) {
+                    player.giveCard(card);
+                    discardPile.addToCards(card);
+                }
+            }
+        }
     }
 
 
