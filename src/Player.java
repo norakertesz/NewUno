@@ -19,6 +19,10 @@ public class Player {
         this.game = game;
     }
 
+    public ArrayList<Card> getCardsInHand() {
+        return cardsInHand;
+    }
+
     //karte zu hand
     public void giveCard(Card card) {
         cardsInHand.add(card);
@@ -28,9 +32,7 @@ public class Player {
     //karte auf dem tisch legen
     public Card playerDropCard() {
         int choice;   //kann wählen welche karte(wievielte) vom reihe(1-7)
-
         do {
-
             String a = input.nextLine();
 
             try {
@@ -51,7 +53,6 @@ public class Player {
                 System.out.println("Bitte eine Nummer zwischen 1 und " + cardsInHand.size() + " eingeben:");
             }
         } while (true);
-
     }
 
     public void takeCardBack(Card card) {
