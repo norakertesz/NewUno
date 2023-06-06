@@ -40,7 +40,7 @@ public class Player {
 
             } catch (NumberFormatException e) {
 
-                System.out.println("Bitte eine Nummer zwischen 1 und " + cardsInHand.size() + " eingeben:");
+                System.out.println("Please enter a number between 1 and  " + cardsInHand.size() );
                 continue;
             }
 
@@ -50,7 +50,7 @@ public class Player {
                     return cardsInHand.remove(choice - 1);
                 }
             } else {
-                System.out.println("Bitte eine Nummer zwischen 1 und " + cardsInHand.size() + " eingeben:");
+                System.out.println("Please enter a number between 1 and  " + cardsInHand.size());
             }
         } while (true);
     }
@@ -108,6 +108,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player" + playersNumber + ": " + name + " Karten in Hand: " + cardsInHand + "\n";
+        return "Player" + playersNumber + ": " + name + " Cards in hand:" + cardsInHand + "\n";
     }
 }
