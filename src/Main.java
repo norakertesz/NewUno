@@ -13,9 +13,9 @@ public class Main {
         gamePlayers.addPlayerToPlayerList(ksenija);
         gamePlayers.addPlayerToPlayerList(marlies);
         gamePlayers.addPlayerToPlayerList(nora);
-        gamePlayers.start();
+        System.out.println("********************************************");
         System.out.println("-------------------START------------------");
-        System.out.println(gamePlayers);
+        gamePlayers.start();
         gamePlayers.cardChoice();
 
 

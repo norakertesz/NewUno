@@ -60,7 +60,7 @@ public class CardDeck {
         Collections.shuffle(cards);
     }
 
-    public Card drawCard(){
+    public static Card drawCard(){
         return cards.remove(cards.size()-1);
     }
 

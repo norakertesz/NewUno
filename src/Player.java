@@ -12,11 +12,14 @@ public class Player {
     private boolean gameOver;
     private Game game;
 
-    public Player(int playersNumber, String name, Game game) {
+    public Player(int playersNumber, String name) {
         this.name = name;
         this.playersNumber = playersNumber;
         gameOver = false;
         this.game = game;
+    }
+
+    public Player(String name, int currentPlayerNumber) {
     }
 
     public ArrayList<Card> getCardsInHand() {
