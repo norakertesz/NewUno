@@ -35,8 +35,9 @@ public class Game {
         return cardDeck;
     }
 
-    public static  setNewColor(String newColor) {
+    public static String setNewColor(String newColor) {
         newColor = newColor;
+        return newColor;
     }
 
     public static CardDeck getDiscardPile(
@@ -370,7 +371,7 @@ public void addPlayers() {
         currentPlayer.giveCard(cardDeck.drawCard());
 
     }
-    public static Card setColorIfColorChangeCard() {
+    public static String setColorIfColorChangeCard() {
         String colorWish = input.nextLine();
         System.out.println("Choose a color: Red, Blue, Green, Yellow");
 
@@ -390,7 +391,7 @@ public void addPlayers() {
             output.println("This color is not valid!");
             setColorIfColorChangeCard();
         }
-        return null;
+        return colorWish;
     }
     @Override
     public String toString() {
