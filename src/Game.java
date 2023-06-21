@@ -135,8 +135,8 @@ public class Game {
 
     public Card layStartCard() {
         //erste karte auf dem tisch, wenn es ist +4, dann wird die farbe random ausgewählt
-        Card card = drawPile.drawCard();
-        discardPile.addToDiscardPile(card);
+        Card card = getDiscardPile().getDropCard();
+
         if (card.getSign().equals("ColorChange") || card.getSign().equals("+4")) {
             // Wenn die erste Karte eine Farbwahlkarte ist, wird die Farbe zufällig ausgewählt
             Random random = new Random();
@@ -148,6 +148,7 @@ public class Game {
             output.println("First card is: " + card);
             output.println("First color is: " + startColor);
         } else {
+
             output.println("First card is: " + card);
         }
 
