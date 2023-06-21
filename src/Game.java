@@ -51,7 +51,7 @@ public class Game {
 
 
     public void start() {
-        help.printHelp();  //help am anfang anzeigen
+        //help.printHelp();  //help am anfang anzeigen
         addPlayers();
 
         shareCards();   //karten austeilen
