@@ -324,8 +324,8 @@ public class Game {
         boolean hasCard = false;
 
         for (Card card : hand) {
-            if (discardDeckCard.getColor().equals(card.getColor()) || discardDeckCard.getSign().equals(card.getSign())
-                    || card.getColor().equals("Black") || card.getColor().equals(getNewColor())) {
+            if (((discardDeckCard.getColor().equals(card.getColor()) || discardDeckCard.getSign().equals(card.getSign())
+                    || (card.getColor().equals("Black")) || (card.getColor().equals(getNewColor())))&&hand!=null)) {
                 hasCard = true;
                 break;
             }
