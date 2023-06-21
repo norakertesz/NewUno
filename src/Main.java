@@ -3,16 +3,16 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         Game gamePlayers = new Game();
+//
+//        Player kata = new Player(1, "Kata",gamePlayers);
+//        Player ksenija = new Player(2, "Ksenija",gamePlayers);
+//        Player marlies = new Player(3, "Marlies",gamePlayers);
+//        Player nora = new Player(4, "Nora",gamePlayers);
 
-        Player kata = new Player(1, "Kata",gamePlayers);
-        Player ksenija = new Player(2, "Ksenija",gamePlayers);
-        Player marlies = new Player(3, "Marlies",gamePlayers);
-        Player nora = new Player(4, "Nora",gamePlayers);
-
-        gamePlayers.addPlayerToPlayerList(kata);
-        gamePlayers.addPlayerToPlayerList(ksenija);
-        gamePlayers.addPlayerToPlayerList(marlies);
-        gamePlayers.addPlayerToPlayerList(nora);
+//        gamePlayers.addPlayerToPlayerList(kata);
+//        gamePlayers.addPlayerToPlayerList(ksenija);
+//        gamePlayers.addPlayerToPlayerList(marlies);
+//        gamePlayers.addPlayerToPlayerList(nora);
         System.out.println("********************************************");
         System.out.println("-------------------START------------------");
         gamePlayers.start();

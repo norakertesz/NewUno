@@ -1,21 +1,20 @@
 public class Card {
 
-    private String color; // Kartenfarben als String angegeben
-    private final String sign;//Kartenzeichen als finale String angegeben/kann nicht geändert werden
+    //card klasse mit eigenschaften
+    private final String sign;   // Kartenzeichen als String angegeben
+    private String color;       //Kartenfarben als finale String angegeben/kann nicht geändert werden
     private int value;          //value zum punkte sammeln
 
-    public Card( String sign, String color) {
-        this.color = color;
+    public Card(String sign, String color, int value) {
         this.sign = sign;
+        this.color = color;
         this.value = value;
-    }
-    public int getValue() {
-        return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public String getSign() {
+        return sign;
     }
+
     public String getColor() {
         return color;
     }
@@ -24,15 +23,16 @@ public class Card {
         this.color = color;
     }
 
-    public String getSign() { //Da meine Kartenzeichen final sind, brauchen wir keine Setter-Methode
-        return sign;
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     @Override
     public String toString() {
-        return
-                 color + sign  ;
+        return color + ' ' + sign;
     }
-
-
 }
