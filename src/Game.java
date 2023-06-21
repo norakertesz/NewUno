@@ -210,8 +210,10 @@ public class Game {
         Card discardDeckCard = getDiscardPile().getDropCard();
         if (discardDeckCard.getSign().equals("Reverse")) {
             isCardIsReverse();
+            System.out.println("Switch direction");
         } else if (discardDeckCard.getSign().equals("Stop")) {
             isCardStop();
+            System.out.println("Out till next turn: "+playersInGame.get(currentPlayerNumber-1).getName());
         } else {
             isCardNormal();
         }
