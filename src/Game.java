@@ -157,7 +157,7 @@ public class Game {
 
     public static boolean cardValidation(Card cardOnTheTable) {
         Card discardDeckCard = getDiscardPile().getDropCard();
-        Player currentPlayer = currentPlayer();
+
 
         if (cardOnTheTable.getColor().equals("Black")) {
             if (cardOnTheTable.getSign().equals("+4") || cardOnTheTable.getSign().equals("ColorChange")) {
@@ -201,7 +201,6 @@ public class Game {
             drawPenaltyCard();
             drawPenaltyCard();
             drawPenaltyCard();
-        } else {
         }
     }
 
