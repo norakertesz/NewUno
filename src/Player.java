@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Player {
@@ -91,6 +92,9 @@ public class Player {
 
     public void setPlayersNumber(int playersNumber) {
         this.playersNumber = playersNumber;
+    }
+    public boolean checkUno() {
+        return cardsInHand.size() == 1;
     }
 
     @Override

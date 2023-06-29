@@ -11,6 +11,7 @@ public class Game {
     private static ArrayList<Player> playersInGame;    //players in game list
     protected static CardDeck drawPile;   //ziehstapel
 
+
     public static CardDeck getDrawPile() {
         return drawPile;
     }
@@ -76,6 +77,7 @@ public class Game {
         // help.printHelp();  //help am anfang anzeigen
 
         drawPile.createCards();
+
         discardPile.showAllCards();
         drawPile.shuffle();
         addPlayers();
@@ -160,27 +162,25 @@ public class Game {
     }
 
     public Card layStartCard() {
-        //erste karte auf dem tisch, wenn es ist +4, dann wird die farbe random ausgewählt
-        Card card = drawPile.getTopCard(drawPile);
+        Card card;
+        do {
+            card = drawPile.getTopCard(drawPile);
+        } while (!isNumberCard(card) && !isSpecialCard(card));
 
-        if (card.getSign().equals("ColorChange") || card.getSign().equals("+4")) {
-            // Wenn die erste Karte eine Farbwahlkarte ist, wird die Farbe zufällig ausgewählt
-            Random random = new Random();
-            String[] colors = {"Red", "Green", "Yellow", "Blue"};
-            int randomIndex = random.nextInt(colors.length);
-            String startColor = colors[randomIndex];
-            setNewColor(startColor);
-            newColor = card.getColor();
-            output.println("First card is: " + card);
-            output.println("First color is: " + startColor);
-        } else {
-
-            output.println("First card is: " + card);
-        }
+        output.println("First card is: " + card);
         discardPile.addToPile(card);
         return card;
     }
 
+    private boolean isNumberCard(Card card) {
+        String sign = card.getSign();
+        return sign.matches("[0-9]");
+    }
+
+    private boolean isSpecialCard(Card card) {
+        String sign = card.getSign();
+        return sign.equals("ColorChange") || sign.equals("+4") || sign.equals("+2") || sign.equals("Stop") || sign.equals("Reverse");
+    }
     public static boolean cardValidation(Card cardOnTheTable) {
         Card discardDeckCard = getDiscardPile().getTopCard(discardPile);
 
@@ -208,7 +208,7 @@ public class Game {
             System.out.println("Discardpile:");
             discardPile.showAllCards();
         }
-            penalty();
+        penalty();
 
 
 
@@ -335,12 +335,12 @@ public class Game {
             }
         } else if (currentPlayerIndex == 2) {
             System.out.println("Player 3 spielt stop für 4. aus, kommt wieder die erste Player.");
-                currentPlayerIndex = 0;
+            currentPlayerIndex = 0;
 
-            }
+        }
         setCurrentPlayerNumber(currentPlayerIndex);
         return currentPlayerIndex;
-        }
+    }
 
 
 
@@ -399,7 +399,7 @@ public class Game {
             String colorWish = input.nextLine();
             if (colorWish.equalsIgnoreCase("Red")) {
                 System.out.println("You wish for Red");
-               newColor="Red";
+                newColor="Red";
                 return;
             } else if (colorWish.equalsIgnoreCase("Blue")) {
                 System.out.println("You wish for Blue");
