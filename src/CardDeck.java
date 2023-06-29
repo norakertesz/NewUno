@@ -2,17 +2,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class CardDeck {
-    private final ArrayList<Card> cards;
-    private ArrayList<Card> discardPile = new ArrayList<>();
+    private ArrayList<Card> cards;
+//private static ArrayList<Card> discardPile = new ArrayList<>();
 
     public CardDeck() {   //default konstruktor
-        cards = new ArrayList<>();
-        createCards();    //creating carddeck
-    }
-
-    @Override
-    public String toString() {
-        return "CardDeck" + cards;
+        this.cards = new ArrayList<>();
+      //  createCards();    //creating carddeck
     }
 
     //carddeck erstellen mit alle aktionskarten
@@ -23,7 +18,7 @@ public class CardDeck {
             cards.add(new Card("+2", "Blue", 20));
             cards.add(new Card("Stop", "Blue", 20));
             for (int j = 1; j < 10; j++) {  //zahlen
-                cards.add(new Card(Integer.toString(j), "Blue", i));
+                cards.add(new Card(Integer.toString(j), "Blue", j));
             }
         }
 
@@ -33,7 +28,7 @@ public class CardDeck {
             cards.add(new Card("+2", "Green", 20));
             cards.add(new Card("Stop", "Green", 20));
             for (int j = 1; j < 10; j++) {
-                cards.add(new Card(Integer.toString(j), "Green", i));
+                cards.add(new Card(Integer.toString(j), "Green", j));
             }
         }
         for (int i = 0; i < 2; i++) {
@@ -42,7 +37,7 @@ public class CardDeck {
             cards.add(new Card("+2", "Red", 20));
             cards.add(new Card("Stop", "Red", 20));
             for (int j = 1; j < 10; j++) {
-                cards.add(new Card(Integer.toString(j), "Red", i));
+                cards.add(new Card(Integer.toString(j), "Red", j));
             }
         }
 
@@ -52,7 +47,7 @@ public class CardDeck {
             cards.add(new Card("+2", "Yellow", 20));
             cards.add(new Card("Stop", "Yellow", 20));
             for (int j = 1; j < 10; j++) {
-                cards.add(new Card(Integer.toString(j), "Yellow" , i));
+                cards.add(new Card(Integer.toString(j), "Yellow" , j));
             }
         }
         for (int b = 0; b < 1; b++) {
@@ -68,39 +63,59 @@ public class CardDeck {
             cards.add(new Card("+4", "Black", 50));
             cards.add(new Card("ColorChange", "Black", 50));
         }
+       // Collections.shuffle(cards);
+    }
+
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
+    public int getNumberOfCards() {
+        return cards.size();
+    }
+
+    public void shuffle() {
         Collections.shuffle(cards);
     }
 
+    public void showAllCards() {
+        for (Card card: cards) {
+            System.out.println(card.toString());
+        }
+    }
 
     public Card drawCard() {
 
         if (cards.isEmpty()) {
             //wenn carddeck ist leer
-            resetDeck();
+            //TODO: resetcarddeck
+            return null;
         }
         //karten aufheben
-        return cards.remove(cards.size() - 1);
+//        System.out.println("Hallo von drawCard: es gibt " + cards.size() + " Karten in dem Deck VOR dem Heben.");
+        Card tmp_card =  cards.remove(cards.size() - 1);
+//        System.out.println("Hallo von drawCard: es gibt " + cards.size() + " Karten in dem Deck NACH dem Heben.");
+        return tmp_card;
     }
 
-    public void resetDeck() {
-        //discardpile erstellen von discarded cards
-        cards.clear();
-        for (Card discardedCard : discardPile) {
-            cards.add(discardedCard);
-        }
-        discardPile.clear();
-        Collections.shuffle(cards);
-    }
 
-    public void addToDiscardPile(Card playerDropCard) {
+
+
+    public void addToPile(Card playerDropCard) {
         //gespielte karte zum neue stapel
-        cards.add(playerDropCard);
+//        System.out.println("Hallo von addtodiscardpile: es gibt " + discardPile.size() + " Karten in dem Deck VOR dem Heben.");
+        cards.add(0,playerDropCard);
     }
 
-    public Card getDropCard() {
-        //eine karte ausspielen
-        return cards.get(cards.size()-1);
+    public Card getTopCard(CardDeck deck) {
+        Card topCard = deck.getCards().get(0);
+        return topCard;
     }
 
-
+    @Override
+    public String toString() {
+        return "CardDeck{" +
+                "cards=" + cards
+                ;
+    }
 }

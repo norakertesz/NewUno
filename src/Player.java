@@ -50,6 +50,7 @@ public class Player {
             } else {
                 System.out.println("Error... Please enter a NUMBER between 1 and " + cardsInHand.size() + " eingeben:");
             }
+
         }
         while (true);
     }
@@ -62,7 +63,9 @@ public class Player {
         //wie viel karte hat ein spieler
         return cardsInHand.size();
     }
-
+    public boolean hasWon() {
+        return getCardsInHand().isEmpty();
+    }
     public String showMyCards() {
         //welche karten hat der spieler
         String myCards = "";
