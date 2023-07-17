@@ -96,7 +96,14 @@ public class Player {
     public boolean checkUno() {
         return cardsInHand.size() == 1;
     }
+    public int getHandCardPoints() {
+        int points = 0;
+        for (Card c : cardsInHand) {
+            points += c.getValue();
 
+        }
+        return points;
+    }
     @Override
     public String toString() {
 

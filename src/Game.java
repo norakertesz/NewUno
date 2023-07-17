@@ -10,6 +10,7 @@ public class Game {
     private static PrintStream output = new PrintStream(System.out);
     private static ArrayList<Player> playersInGame;    //players in game list
     protected static CardDeck drawPile;   //ziehstapel
+    public int round = 1;
 
 
     public static CardDeck getDrawPile() {
@@ -31,12 +32,12 @@ public class Game {
 //    private int session = 1;
 //    private boolean exit = false;
     private static String newColor;
-    private Player currentPlayer;
+    protected Player currentPlayer;
 
     // ...
 
     public Player getCurrentPlayer() {
-        return currentPlayer;
+        return this.currentPlayer;
     }
 
     private void setCurrentPlayer(Player player) {
@@ -77,14 +78,20 @@ public class Game {
         // help.printHelp();  //help am anfang anzeigen
 
         drawPile.createCards();
-
         discardPile.showAllCards();
         drawPile.shuffle();
         addPlayers();
         shareCards();   //karten austeilen
         layStartCard();  //erste karte auf dem tisch
         chooseInitialPlayer();
-        cardChoice();
+
+        if (playersInGame.get(currentPlayerNumber).getCardsInHand() == null) {
+            System.out.println("Start new round");
+            startNewRound();
+        }
+        do {
+            cardChoice();
+        } while (gameOver = true);
 
     }
 
@@ -96,6 +103,7 @@ public class Game {
         setCurrentPlayerNumber(randomIndex);
 
         Player first = playersInGame.get(randomIndex);
+        System.out.println("HALLO FROM chooseInitialPlayer()");
         return first;
     }
 
@@ -128,18 +136,28 @@ public class Game {
             playersInGame.add(bot);
             System.out.println(name + " will be joining you as well");
         }
+        System.out.println("HALLO FROM addPlayer();");
     }
 
     public void cardChoice() {
-        //prüft ob der player kann eine karte legen und welche, wenn er kann nicht, zieht eine karte
-        do {
-            Player currentPlayer = currentPlayer();
+        currentPlayer = playersInGame.get(currentPlayerNumber);
+
+        if (currentPlayer instanceof Bot) {
+            Player currentPlayer = playersInGame.get(currentPlayerNumber);
+            ((Bot) currentPlayer).botCardChoice();
+            checkNextTurn();
+        } else {
+
+            Player currentPlayer = playersInGame.get(currentPlayerNumber);
+            ;
             output.println("\nPlayer " + currentPlayer.getName() + " your turn");
             penalty();
+
             if (canPlayerDropACard()) {
                 output.println("Your cards: " + "\n" + currentPlayer.showMyCards());
                 output.println("Which card do you want to play?");
                 discardPile.addToPile(currentPlayer.playerDropCard());
+                //discardPile.addToPile(currentPlayer.playerDropCard());
                 output.println("Card on Table: " + discardPile.getTopCard(discardPile));
 
             } else {
@@ -149,10 +167,15 @@ public class Game {
 
             }
             checkNextTurn();
-        } while (gameOver != true);
+            newColor = null;
+        }
+
     }
+    //prüft ob der player kann eine karte legen und welche, wenn er kann nicht, zieht eine karte
+
 
     public void shareCards() {
+        System.out.println("Hallo from sharecards()");
         //karten austeilen - 7karte
         for (Player p : playersInGame) {
             for (int i = 0; i < 7; i++) {
@@ -164,12 +187,20 @@ public class Game {
     public Card layStartCard() {
         Card card;
         do {
+            System.out.println("Hallo FROM layStartCard()");
             card = drawPile.getTopCard(drawPile);
-        } while (!isNumberCard(card) && !isSpecialCard(card));
+            if (isNumberCard(card)) {
+                output.println("First card is: " + card);
+                discardPile.addToPile(card);
+                return card;
+            } else {
+                drawPile.addToPile(card);
+            }
+        } while (!drawPile.isEmpty());
 
-        output.println("First card is: " + card);
-        discardPile.addToPile(card);
-        return card;
+        // Wenn das drawPile leer ist, kannst du hier entsprechend reagieren
+        System.out.println("The drawPile is empty, cannot lay a start card.");
+        return null;
     }
 
     private boolean isNumberCard(Card card) {
@@ -177,10 +208,7 @@ public class Game {
         return sign.matches("[0-9]");
     }
 
-    private boolean isSpecialCard(Card card) {
-        String sign = card.getSign();
-        return sign.equals("ColorChange") || sign.equals("+4") || sign.equals("+2") || sign.equals("Stop") || sign.equals("Reverse");
-    }
+
     public static boolean cardValidation(Card cardOnTheTable) {
         Card discardDeckCard = getDiscardPile().getTopCard(discardPile);
 
@@ -188,8 +216,8 @@ public class Game {
         if (cardOnTheTable.getColor().equals("Black")) {
             if (cardOnTheTable.getSign().equals("+4") || cardOnTheTable.getSign().equals("ColorChange")) {
                 setColorIfColorChangeCard(cardOnTheTable);
-                System.out.println("cardOnTheTable.getColor(): "+cardOnTheTable.getColor());
-                System.out.println("New color: "+newColor);
+                System.out.println("cardOnTheTable.getColor(): " + cardOnTheTable.getColor());
+                System.out.println("New color: " + newColor);
                 return true;
             }
         } else if (cardOnTheTable.getColor().equals(newColor)) {
@@ -203,30 +231,26 @@ public class Game {
             output.println("Card on Table: " + discardDeckCard);
             output.println("Gespielte Karte: " + cardOnTheTable);
 
-            //System.out.println("Drawpile:");
-            //drawPile.showAllCards();
             System.out.println("Discardpile:");
             discardPile.showAllCards();
         }
         penalty();
 
 
-
         return false;
     }
 
 
-
     public static void penalty() {
         //prüft, wie viel karte muss ein spieler heben
-        Player currentPlayer = currentPlayer();
+        Player currentPlayer = playersInGame.get(currentPlayerNumber);
+        ;
         Card discardDeckCard = getDiscardPile().getTopCard(discardPile);
 
         if (discardDeckCard.getSign().equals("+2")) {
             output.println("But first you have to take 2 cards!");
             drawPenaltyCard();
             drawPenaltyCard();
-
 
 
         } else if (discardDeckCard.getSign().equals("+4")) {
@@ -239,7 +263,8 @@ public class Game {
     }
 
     public void checkNextTurn() {
-        Player currentPlayer = currentPlayer();
+        Player currentPlayer = playersInGame.get(currentPlayerNumber);
+        ;
         //prüft, wer ist die nächste beim reverse, stop und beim normale karte
         Card discardDeckCard = getDiscardPile().getTopCard(discardPile);
         if (discardDeckCard.getSign().equals("Reverse")) {
@@ -247,7 +272,7 @@ public class Game {
             System.out.println("Switch direction");
         } else if (discardDeckCard.getSign().equals("Stop")) {
             isCardStop();
-            System.out.println("Out till next turn: "+currentPlayer);
+            System.out.println("Out till next turn: " + currentPlayer);
         } else {
             isCardNormal();
         }
@@ -343,18 +368,19 @@ public class Game {
     }
 
 
-
     public static void drawPenaltyCard() {
         //wenn ein spieler bekommt ein +2 oder +4 karte, er muss abheben
-        Player currentPlayer = currentPlayer();
+        Player currentPlayer = playersInGame.get(currentPlayerNumber);
+
         currentPlayer.giveCard(drawPile.drawCard());
     }
 
 
-    public boolean canPlayerDropACard() {
+    public static boolean canPlayerDropACard() {
         //automatisch prüft, kann der spieler eine karte legen, oder muss aufheben
         Card discardDeckCard = getDiscardPile().getTopCard(discardPile);
-        Player currentPlayer = currentPlayer();
+        Player currentPlayer = playersInGame.get(currentPlayerNumber);
+        ;
         ArrayList<Card> hand = currentPlayer.getCardsInHand();
         boolean hasCard = false;
 
@@ -380,16 +406,27 @@ public class Game {
         return hasCard;
     }
 
-    public static void colorChange() {
-        //spieler kann farbe wählen
-        Card discardDeckCard = getDiscardPile().getTopCard(discardPile);
-        if (discardDeckCard.getSign().equals("ColorChange")) {
-            output.println("Give me a new color: ");
-            String newColor = input.nextLine().toLowerCase();
-            setNewColor(newColor);
+    public void initialize() {
+        //Speieler und Karten anlegen - man initialisiert Sachen, die nur einmal intialisert werden müssen
+        drawPile.createCards();
+        addPlayers();
+    }
 
+    public void startNewRound() {
+        round++;
+        int sum = 0;
+        System.out.println("Current player has no cards left. This round is over. Let´s start new round!");
+        for (int i = 0; i < playersInGame.size(); i++) { // um die Punkte zusammenzuzählen
+            if (playersInGame.get(i).getCardsInHand() == null) { // der Spieler hat die Runde gewonnen
+                System.out.println("Spieler: " + i + " hat keine Karten mehr");
+                System.out.println(playersInGame.get(i) + " has won: " + sum);
+            } else {
+                sum = sum + playersInGame.get(i).getHandCardPoints();
+                System.out.println(playersInGame.get(i).getHandCardPoints());
+            }
         }
     }
+
 
     public static void setColorIfColorChangeCard(Card cardOnTheTable) {
         Scanner input = new Scanner(System.in);
@@ -399,24 +436,45 @@ public class Game {
             String colorWish = input.nextLine();
             if (colorWish.equalsIgnoreCase("Red")) {
                 System.out.println("You wish for Red");
-                newColor="Red";
+                newColor = "Red";
                 return;
             } else if (colorWish.equalsIgnoreCase("Blue")) {
                 System.out.println("You wish for Blue");
-                newColor="Blue";
+                newColor = "Blue";
                 return;
             } else if (colorWish.equalsIgnoreCase("Green")) {
                 System.out.println("You wish for Green");
-                newColor="Green";
+                newColor = "Green";
                 return;
             } else if (colorWish.equalsIgnoreCase("Yellow")) {
                 System.out.println("You wish for Yellow");
-                newColor="Yellow";
+                newColor = "Yellow";
                 return;
             } else {
                 System.out.println("This color is not valid!");
             }
         } while (true);
+    }
+
+    public static void setColorIfColorChangeCardForBots(Card cardOnTheTable, String colorWish) {
+        if (colorWish.equalsIgnoreCase("Random")) {
+            String[] colors = {"Red", "Blue", "Green", "Yellow"};
+            int randomIndex = new Random().nextInt(colors.length);
+            newColor = colors[randomIndex];
+            System.out.println("You wish for " + newColor);
+            return;
+        }
+
+        String[] validColors = {"Red", "Blue", "Green", "Yellow"};
+        for (String color : validColors) {
+            if (colorWish.equalsIgnoreCase(color)) {
+                newColor = color;
+                System.out.println("You wish for " + newColor);
+                return;
+            }
+        }
+
+        System.out.println("This color is not valid!");
     }
 
     public boolean winner() {
@@ -431,7 +489,7 @@ public class Game {
 
 
     private void setGameOver(boolean b) {
-        gameOver=true;
+        gameOver = true;
     }
 
     public boolean isGameOver() {

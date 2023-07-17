@@ -118,4 +118,8 @@ public class CardDeck {
                 "cards=" + cards
                 ;
     }
+
+    public boolean isEmpty() {
+        return cards.isEmpty();
+    }
 }
