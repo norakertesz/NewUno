@@ -56,9 +56,6 @@ public class Player {
         while (true);
     }
 
-    public void takeCardBack(Card card) {
-        cardsInHand.add(card);
-    }
 
     public int countMyCards() {
         //wie viel karte hat ein spieler

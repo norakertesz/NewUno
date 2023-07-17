@@ -12,6 +12,7 @@ public class Bot extends Player {
         Card discardDeckCard = Game.getDiscardPile().getTopCard(Game.getDiscardPile());
         Card cardToPlay = null;
         int choice = 0;
+        Game.penalty();
         System.out.println("\nPlayer " + currentPlayer.getName() + " your turn");
         System.out.println("Your cards: " + "\n" + currentPlayer.showMyCards());
         do {
