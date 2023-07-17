@@ -187,27 +187,22 @@ public class Game {
     public Card layStartCard() {
         Card card;
         do {
-            System.out.println("Hallo FROM layStartCard()");
             card = drawPile.getTopCard(drawPile);
-            if (isNumberCard(card)) {
-                output.println("First card is: " + card);
-                discardPile.addToPile(card);
-                return card;
-            } else {
-                drawPile.addToPile(card);
-            }
-        } while (!drawPile.isEmpty());
+        } while (!isNumberCard(card) && !isSpecialCard(card));
 
-        // Wenn das drawPile leer ist, kannst du hier entsprechend reagieren
-        System.out.println("The drawPile is empty, cannot lay a start card.");
-        return null;
+        output.println("First card is: " + card);
+        discardPile.addToPile(card);
+        return card;
     }
 
     private boolean isNumberCard(Card card) {
         String sign = card.getSign();
         return sign.matches("[0-9]");
     }
-
+    private boolean isSpecialCard(Card card) {
+        String sign = card.getSign();
+        return sign.equals("ColorChange") || sign.equals("+4") || sign.equals("+2") || sign.equals("Stop") || sign.equals("Reverse");
+    }
 
     public static boolean cardValidation(Card cardOnTheTable) {
         Card discardDeckCard = getDiscardPile().getTopCard(discardPile);
