@@ -578,7 +578,7 @@ public class Game {
         for (Player p : playersInGame) {
             if (p.getPlayerPoints() >= 500) {
                 gameOver = true;
-                System.out.println(p.getName() + "YOU ARE THE CHAMPION!!!!");
+                System.out.println(RED+p.getName() + "YOU"+SUNNY+"ARE"+YELLOW+ "THE"+PINK+ "CHAMPION!!!!"+RESET);
             }
         }
         return gameOver;
