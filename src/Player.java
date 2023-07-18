@@ -11,9 +11,18 @@ public class Player {
     protected int playersNumber = 4;
     private final ArrayList<Card> cardsInHand = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
-    private String winner;
+    protected String winner;
     private boolean gameOver;
 
+    protected static int playerPoints = 0;
+
+    public static int getPlayerPoints() {
+        return playerPoints;
+    }
+
+    public static void setPlayerPoints(int playerPoints) {
+        Player.playerPoints = playerPoints;
+    }
 
     public Player(String name, int playersNumber) {
         this.name = name;
@@ -32,7 +41,7 @@ public class Player {
 
     public Card playerDropCard() {
         //karte auf dem tisch legen
-
+        Card card=null;
         int choice;   //kann wählen welche karte(wievielte) vom reihe(1-7)
 
         do {
@@ -46,14 +55,16 @@ public class Player {
             }
             if (choice > 0 && choice <= cardsInHand.size()) {
                 if (Game.cardValidation(cardsInHand.get(choice - 1))) {
-                    return cardsInHand.remove(choice - 1);
+                    card = cardsInHand.remove(choice - 1);
+                    return card;
                 }
             } else {
                 System.out.println("Error... Please enter a NUMBER between 1 and " + cardsInHand.size() + " eingeben:");
             }
 
         }
-        while (true);
+        while (Game.isEndOfRound());
+        return card;
     }
 
 
@@ -61,9 +72,11 @@ public class Player {
         //wie viel karte hat ein spieler
         return cardsInHand.size();
     }
+
     public boolean hasWon() {
         return getCardsInHand().isEmpty();
     }
+
     public String showMyCards() {
         //welche karten hat der spieler
         String myCards = "";

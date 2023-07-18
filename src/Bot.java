@@ -2,6 +2,7 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.Random;
 
+
 public class Bot extends Player {
     public Bot(String name, int playersNumber) {
         super(name, playersNumber);
@@ -42,12 +43,22 @@ public class Bot extends Player {
             }
             Card removedCard = getCardsInHand().remove(choice);
             Game.getDiscardPile().addToPile(removedCard);
-            System.out.println("Card on table: " + removedCard);
-            if(currentPlayer.getCardsInHand().size() == 1){
+            System.out.println(Game.SUNNY + "Card on table: " + removedCard + Game.RESET);
+            if (currentPlayer.getCardsInHand().size() == 1) {
                 System.out.println("************************UNO!**************************");
             }
+            if (currentPlayer.getCardsInHand().size() == 0) {
+                Game.winner();
+            }
+
+            Game.setNewColor(null);
+            Game.winner();
+            if (currentPlayer == Game.winner) {
+                Game.calculateWinnerPoints();
+                System.out.println(currentPlayer.getName() + " is the winner of this round!");
+            }
             return removedCard;
-        } while (Game.winner()==true);
+        } while (Game.winner() == false);
     }
 
 
