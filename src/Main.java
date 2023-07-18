@@ -5,7 +5,7 @@ public class Main {
         Game gamePlayers = new Game();
         System.out.println("********************************************");
         System.out.println("-------------------START------------------");
-        gamePlayers.start();
+        gamePlayers.run();
 
 
 

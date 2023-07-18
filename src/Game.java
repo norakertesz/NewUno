@@ -12,9 +12,15 @@ public class Game {
     private static boolean endOfRound = false;
     public static final String SUNNY = "\u001B[38;2;102;153;204m";
     public static final String RESET = "\u001B[0m";
+    public static final String PINK = "\u001B[38;2;255;192;203m";
     public int round = 1;
-
-
+    private boolean clockweis = true;//spielrichtung
+    protected static Player winner;
+    private static boolean gameOver;
+    private static String newColor;
+    protected Player currentPlayer;
+    private static int currentPlayerNumber;
+    private static CardDeck discardPile;  //ablegestapel
     public static CardDeck getDrawPile() {
         return drawPile;
     }
@@ -24,17 +30,8 @@ public class Game {
         Game.discardPile = discardPile;
     }
 
-    private static CardDeck discardPile;  //ablegestapel
     private Help help = new Help();
-    private boolean clockweis = true;      //spielrichtung
-    private static int currentPlayerNumber;
-    protected static Player winner;
-    private static boolean gameOver;
-    //    private int round = 1;
-//    private int session = 1;
-//    private boolean exit = false;
-    private static String newColor;
-    protected Player currentPlayer;
+
 
     public static void setEndOfRound(boolean endOfRound) {
         endOfRound = endOfRound;
@@ -43,17 +40,6 @@ public class Game {
     public static void setWinner(Player winner) {
         Game.winner = winner;
     }
-
-    // ...
-
-    public Player getCurrentPlayer() {
-        return this.currentPlayer;
-    }
-
-    private void setCurrentPlayer(Player player) {
-        currentPlayer = player;
-    }
-
 
     public static String getNewColor() {
         return newColor;
@@ -84,7 +70,7 @@ public class Game {
     }
 
 
-    public void start() {
+    public void run() {
         // help.printHelp();  //help am anfang anzeigen
 
         drawPile.createCards();
