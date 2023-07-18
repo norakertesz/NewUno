@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Help {
     public void printHelp() {
-        File file = new File("C:\\Users\\S53029\\Desktop\\UNOnew másolata\\src\\help.txt");
+        File file = new File("C:\\Users\\S53029\\Desktop\\UNOFertig\\src\\help.txt");
         BufferedReader bufferedReader = null;
 
         try {

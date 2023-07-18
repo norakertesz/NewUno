@@ -8,7 +8,7 @@ public class Game {
     //ATTRIBUTEN
     private static Scanner input = new Scanner(System.in);
     private static PrintStream output = new PrintStream(System.out);
-    private static ArrayList<Player> playersInGame;    //players in game list
+    protected static ArrayList<Player> playersInGame;    //players in game list
     protected static CardDeck drawPile;   //ziehstapel
     private static boolean endOfRound = false;
     public static final String SUNNY = "\u001B[38;2;102;153;204m";
@@ -17,12 +17,41 @@ public class Game {
     public static final String PINK = "\u001B[38;2;255;192;203m";
     public static final String RED = "\u001B[38;2;255;0;0m";
     public static final String YELLOW = "\u001B[38;2;255;255;0m";
-    public int round = 1;
+    public static int round = 1;
     private boolean clockweis = true;//spielrichtung
     protected static Player winner;
     private static String newColor;
     protected Player currentPlayer;
     private static int currentPlayerNumber;
+
+    protected static int session;
+
+    protected static int roundWinnerPoint;
+
+    public static int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public static int getSession() {
+        return session;
+    }
+
+    public static void setSession(int session) {
+        Game.session = session;
+    }
+
+    public static int getRoundWinnerPoint() {
+        return roundWinnerPoint;
+    }
+
+    public static void setRoundWinnerPoint(int roundWinnerPoint) {
+        Game.roundWinnerPoint = roundWinnerPoint;
+    }
+
     private static CardDeck discardPile;  //ablegestapel
     private Help help = new Help();
 
@@ -80,6 +109,8 @@ public class Game {
         drawPile.createCards();
         discardPile.showAllCards();
         drawPile.shuffle();
+        sessionNumber();
+        DataManager.createDatabase();
         addPlayers();
 
         do {
@@ -91,6 +122,8 @@ public class Game {
 
     //1 ROUND
     public void resetValuesForNewRound() {
+        DataManager.recordWinnerInDB();
+        setRound(round + 1);
         setWinner(null);
         setNewColor(null);
 
@@ -388,7 +421,7 @@ public class Game {
             System.out.println(YELLOW+"Switch direction"+RESET);
         } else if (discardDeckCard.getSign().equals("Stop")) {
             isCardStop();
-            System.out.println("Out till next turn: " + currentPlayer);
+            System.out.println(RED+"Out till next turn: " + currentPlayer.getName()+RESET);
         } else {
             isCardNormal();
         }
@@ -563,6 +596,8 @@ public class Game {
             winnerPoints = winnerPoints + c.getValue();
         }
 
+        setRoundWinnerPoint(winnerPoints);
+
         winner.setPlayerPoints(winner.getPlayerPoints() + winnerPoints);
         System.out.println();
         System.out.println(PINK + "-*/*--*/*--*/*--*/*--*/*--*/*--*/*--*/*--*/*--*/*--*/*--*/*--*/*-");
@@ -578,7 +613,8 @@ public class Game {
         for (Player p : playersInGame) {
             if (p.getPlayerPoints() >= 500) {
                 gameOver = true;
-                System.out.println(RED+p.getName() + "YOU"+SUNNY+"ARE"+YELLOW+ "THE"+PINK+ "CHAMPION!!!!"+RESET);
+                p = winner;
+                System.out.println(RED+ p.getName() + "YOU ARE THE CHAMPION!!!!"+RESET);
             }
         }
         return gameOver;
@@ -593,6 +629,13 @@ public class Game {
 
         } while (winner() == false);
         System.out.println("END OF ROUND");
+    }
+
+    public int sessionNumber() {
+        Random random = new Random();
+        int sessionID = 1000 + random.nextInt(9000);
+        setSession(sessionID);
+        return sessionID;
     }
 
     @Override
