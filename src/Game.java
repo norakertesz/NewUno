@@ -2,6 +2,7 @@
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -26,8 +27,8 @@ public class Game {
     private Help help = new Help();
     private boolean clockweis = true;      //spielrichtung
     private static int currentPlayerNumber;
-    private String winner;
-    private boolean gameOver;
+    private static String winner;
+    private static boolean gameOver;
     //    private int round = 1;
 //    private int session = 1;
 //    private boolean exit = false;
@@ -91,7 +92,7 @@ public class Game {
         }
         do {
             cardChoice();
-        } while (gameOver = true);
+        } while (gameOver= true);
 
     }
 
@@ -114,31 +115,39 @@ public class Game {
 
     public void addPlayers() {
         System.out.println("Please enter number of players: ");
-        int num = input.nextInt();
+        do {
+            try {
+                int num = Integer.parseInt(input.nextLine());
 
-        while (num < 1 || num > 4) {
-            System.out.println("Max 4 players are allowed. Please choose between 1 and 4");
-            num = input.nextInt();
-        }
-        input.nextLine();
-        for (int i = 0; i < num; i++) {
-            System.out.println("Enter your name: ");
-            String name = input.nextLine();
-            Player player = new Player(name, getCurrentPlayerNumber());
-            output.println("Hello " + name);
-            playersInGame.add(player);
-        }
-        System.out.println("Number of human players: " + playersInGame.size() + "\n");
-        int botSize = 4 - playersInGame.size();
-        for (int i = 0; i < botSize; i++) {
-            String name = "Bot " + (i + 1);
-            Bot bot = new Bot(name, getCurrentPlayerNumber());
-            playersInGame.add(bot);
-            System.out.println(name + " will be joining you as well");
-        }
-        System.out.println("HALLO FROM addPlayer();");
+                while (num < 1 || num > 4) {
+                    System.out.println("Max 4 players are allowed. Please choose between 1 and 4");
+                    num = Integer.parseInt(input.nextLine());
+                }
+
+                for (int i = 0; i < num; i++) {
+                    System.out.println("Enter your name: ");
+                    String name = input.nextLine();
+                    Player player = new Player(name, getCurrentPlayerNumber());
+                    output.println("Hello " + name);
+                    playersInGame.add(player);
+                }
+                System.out.println("Number of human players: " + playersInGame.size() + "\n");
+                int botSize = 4 - playersInGame.size();
+                for (int i = 0; i < botSize; i++) {
+                    String name = "Bot " + (i + 1);
+                    Bot bot = new Bot(name, getCurrentPlayerNumber());
+                    playersInGame.add(bot);
+                    System.out.println(name + " will be joining you as well");
+                }
+
+            } catch (NumberFormatException nfe) {
+                System.out.println("Please enter a NUMBER between 1 and 4!");
+                continue;
+            }
+
+            System.out.println("HALLO FROM addPlayer();");
+        } while (true);
     }
-
     public void cardChoice() {
         currentPlayer = playersInGame.get(currentPlayerNumber);
 
@@ -189,8 +198,8 @@ public class Game {
             for (int i = 0; i < 2; i++) {
                 Game.drawPenaltyCard();
                 Game.drawPenaltyCard();
-                System.out.println("You did not say uno");
             }
+            System.out.println("You did not say uno");
         }
     }
     public boolean checkUno() {
@@ -249,8 +258,6 @@ public class Game {
             output.println("Card on Table: " + discardDeckCard);
             output.println("Gespielte Karte: " + cardOnTheTable);
 
-            System.out.println("Discardpile:");
-            discardPile.showAllCards();
         }
         penalty();
 
@@ -495,7 +502,7 @@ public class Game {
         System.out.println("This color is not valid!");
     }
 
-    public boolean winner() {
+    public static boolean winner() {
         for (Player p : playersInGame) {
             if (p.getCardsInHand().size() == 0) {
                 winner = p.getName();

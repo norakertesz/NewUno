@@ -43,7 +43,12 @@ public class Bot extends Player {
             Card removedCard = getCardsInHand().remove(choice);
             Game.getDiscardPile().addToPile(removedCard);
             System.out.println("Card on table: " + removedCard);
+            if(currentPlayer.getCardsInHand().size() == 1){
+                System.out.println("************************UNO!**************************");
+            }
             return removedCard;
-        } while (true);
+        } while (Game.winner()==true);
     }
+
+
 }
