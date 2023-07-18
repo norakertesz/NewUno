@@ -159,6 +159,7 @@ public class Game {
                 discardPile.addToPile(currentPlayer.playerDropCard());
                 //discardPile.addToPile(currentPlayer.playerDropCard());
                 output.println("Card on Table: " + discardPile.getTopCard(discardPile));
+                 didUsayUno();
 
             } else {
                 output.println("Yout still don't have a card to play");
@@ -172,7 +173,29 @@ public class Game {
 
     }
     //prüft ob der player kann eine karte legen und welche, wenn er kann nicht, zieht eine karte
+    public void didUsayUno() {
+        if (!checkUno()) {
+            // Spieler hat mehr als eine Karte, daher keine Aktion erforderlich
+            return;
+        }
 
+        System.out.println("You have only one card left!");
+
+        String userInput = input.nextLine().trim().toLowerCase();
+        if (userInput.equals("uno")) {
+            System.out.println("You declared Uno!");
+        } else {
+            // Zwei Karten abheben, da der Spieler "Uno" nicht richtig angegeben hat
+            for (int i = 0; i < 2; i++) {
+                Game.drawPenaltyCard();
+                Game.drawPenaltyCard();
+                System.out.println("You did not say uno");
+            }
+        }
+    }
+    public boolean checkUno() {
+        return currentPlayer.getCardsInHand().size() == 1;
+    }
 
     public void shareCards() {
         System.out.println("Hallo from sharecards()");

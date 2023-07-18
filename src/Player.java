@@ -90,9 +90,7 @@ public class Player {
     public void setPlayersNumber(int playersNumber) {
         this.playersNumber = playersNumber;
     }
-    public boolean checkUno() {
-        return cardsInHand.size() == 1;
-    }
+
     public int getHandCardPoints() {
         int points = 0;
         for (Card c : cardsInHand) {
@@ -101,6 +99,8 @@ public class Player {
         }
         return points;
     }
+
+
     @Override
     public String toString() {
 
