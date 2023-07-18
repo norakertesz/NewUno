@@ -5,6 +5,8 @@ import java.io.IOException;
 
 public class Help {
     public void printHelp() {
+
+        //Richtige Pathname muss gegeben werden
         File file = new File("C:\\Users\\S53029\\Desktop\\UNOFertig\\src\\help.txt");
         BufferedReader bufferedReader = null;
 
