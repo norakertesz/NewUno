@@ -1,1 +1,39 @@
-khpsoifeojüowjksüdjkfüo
+---------------HILFE---------------
+
+                                             UNO
+
+-----Kata-Nora-Marlies-Ksenija-----
+
+Hier findest du eine Erklärung, wie unser Spiel funktioniert.
+Am Start wählst du aus mit wie vielen Bots du spielen möchtest. Erlaubt sind bis zu 3 Bots.
+Das Spiel hat immer 4 Mitspieler insgesamt.
+
+------------KARTEN-ARTEN-----------
+
+Farben: Red, Green, Yellow, Blue
+
+Normale Karten: Wert 0-9
+
+Aktionskarten:
+Stop - überspringe den nächsten Spieler
+Reverse - Spielrichtung wird geändert
++2 - der nächste Spieler bekommt 2 Karten
+
+Spezialkarten:
+ColorChange - suche dir die Farbe aus, die der nächste Spieler legen soll. Diese Karte kann auf alle Karten gelegt werden
++4 - hier gilt das gleiche wie bei der ColorChange Karte. Zusätzlich bekommt der nächste Spieler 4 Karten.
+Diese Karte hat noch eine Sonderregel: Ein Spieler, der eine +4 Karte hat, kann bluffen und die Karte
+"unerlaubt" legen. Wird er jedoch dabei "erwischt" bekommt er selbst 4 Karten. Wenn er nicht "geblufft" hat,
+bekommt der nächste Spieler 6 Karten.
+
+---------------PUNKTE--------------
+Wenn ein Spieler keine Karten mehr hat, gewinnt er die Runde und bekommt die Punkte von den Karten der anderen Spieler.
+
+Kartenwerte:
+- normale Karten: Wert der Karte (z.B. Yellow8 = 8 Punkte)
+- Aktionskarten: 20 Punkte
+- Spezialkarten: 50 Punkte
+
+Wenn ein Spieler 500 Punkte erreicht hat, ist das Spiel zu Ende.
+
+---------------HILFE---------------

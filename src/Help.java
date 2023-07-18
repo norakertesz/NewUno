@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Help {
     public void printHelp() {
-        File file = new File("help.txt");
+        File file = new File("C:\\Users\\S53029\\Desktop\\UNOnew másolata\\src\\help.txt");
         BufferedReader bufferedReader = null;
 
         try {
@@ -19,11 +19,12 @@ public class Help {
         } catch (IOException e) {
             System.out.println("Error...");
         } finally {
-            try {
-                assert bufferedReader != null;
-                bufferedReader.close();
-            } catch(IOException e) {
-                e.printStackTrace();
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

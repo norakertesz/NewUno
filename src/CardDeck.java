@@ -3,11 +3,9 @@ import java.util.Collections;
 
 public class CardDeck {
     private ArrayList<Card> cards;
-//private static ArrayList<Card> discardPile = new ArrayList<>();
 
     public CardDeck() {   //default konstruktor
         this.cards = new ArrayList<>();
-      //  createCards();    //creating carddeck
     }
 
     //carddeck erstellen mit alle aktionskarten
@@ -47,7 +45,7 @@ public class CardDeck {
             cards.add(new Card("+2", "Yellow", 20));
             cards.add(new Card("Stop", "Yellow", 20));
             for (int j = 1; j < 10; j++) {
-                cards.add(new Card(Integer.toString(j), "Yellow" , j));
+                cards.add(new Card(Integer.toString(j), "Yellow", j));
             }
         }
         for (int b = 0; b < 1; b++) {
@@ -70,10 +68,6 @@ public class CardDeck {
         return cards;
     }
 
-    public int getNumberOfCards() {
-        return cards.size();
-    }
-
     public void shuffle() {
         Collections.shuffle(cards);
     }
@@ -92,18 +86,12 @@ public class CardDeck {
             return null;
         }
         //karten aufheben
-//        System.out.println("Hallo von drawCard: es gibt " + cards.size() + " Karten in dem Deck VOR dem Heben.");
         Card tmp_card =  cards.remove(cards.size() - 1);
-//        System.out.println("Hallo von drawCard: es gibt " + cards.size() + " Karten in dem Deck NACH dem Heben.");
         return tmp_card;
     }
 
 
-
-
     public void addToPile(Card playerDropCard) {
-        //gespielte karte zum neue stapel
-//        System.out.println("Hallo von addtodiscardpile: es gibt " + discardPile.size() + " Karten in dem Deck VOR dem Heben.");
         cards.add(0,playerDropCard);
     }
 

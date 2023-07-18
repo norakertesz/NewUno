@@ -45,7 +45,7 @@ public class Bot extends Player {
             Game.getDiscardPile().addToPile(removedCard);
             System.out.println(Game.SUNNY + "Card on table: " + removedCard + Game.RESET);
             if (currentPlayer.getCardsInHand().size() == 1) {
-                System.out.println("************************UNO!**************************");
+                System.out.println(Game.RED+"************************UNO!**************************"+Game.RESET);
             }
             if (currentPlayer.getCardsInHand().size() == 0) {
                 Game.winner();
@@ -55,7 +55,8 @@ public class Bot extends Player {
             Game.winner();
             if (currentPlayer == Game.winner) {
                 Game.calculateWinnerPoints();
-                System.out.println(currentPlayer.getName() + " is the winner of this round!");
+                System.out.println(Game.PINK+currentPlayer.getName() + " is the winner of this round!"+Game.RESET);
+
             }
             return removedCard;
         } while (Game.winner() == false);

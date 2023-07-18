@@ -11,23 +11,20 @@ public class Player {
     protected int playersNumber = 4;
     private final ArrayList<Card> cardsInHand = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
-    protected String winner;
-    private boolean gameOver;
-
     protected static int playerPoints = 0;
 
+
+    public Player(String name, int playersNumber) {
+        this.name = name;
+        this.playersNumber = playersNumber;
+
+    }
     public static int getPlayerPoints() {
         return playerPoints;
     }
 
     public static void setPlayerPoints(int playerPoints) {
         Player.playerPoints = playerPoints;
-    }
-
-    public Player(String name, int playersNumber) {
-        this.name = name;
-        this.playersNumber = playersNumber;
-        gameOver = false;
     }
 
     public ArrayList<Card> getCardsInHand() {
@@ -67,16 +64,6 @@ public class Player {
         return card;
     }
 
-
-    public int countMyCards() {
-        //wie viel karte hat ein spieler
-        return cardsInHand.size();
-    }
-
-    public boolean hasWon() {
-        return getCardsInHand().isEmpty();
-    }
-
     public String showMyCards() {
         //welche karten hat der spieler
         String myCards = "";
@@ -92,18 +79,6 @@ public class Player {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPlayersNumber() {
-        return playersNumber;
-    }
-
-    public void setPlayersNumber(int playersNumber) {
-        this.playersNumber = playersNumber;
-    }
-
     public int getHandCardPoints() {
         int points = 0;
         for (Card c : cardsInHand) {
@@ -113,10 +88,8 @@ public class Player {
         return points;
     }
 
-
     @Override
     public String toString() {
-
         return "Player" + playersNumber + ": " + name + " Karten in Hand: " + cardsInHand + "\n";
     }
 }
